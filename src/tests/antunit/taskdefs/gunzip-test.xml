@@ -21,17 +21,27 @@
   <target name="setup">
     <mkdir dir="${output}"/>
   </target>
+  
+  <target name="testWithFileResourceToFile" depends="setup">
+    <gunzip dest="${output}/asf-logo.gif">
+      <file file="../../../etc/testcases/taskdefs/expected/asf-logo.gif.gz"/>
+    </gunzip>
+    <au:assertFilesMatch expected="../../../etc/testcases/asf-logo.gif"
+                         actual="${output}/asf-logo.gif"/>
+  </target>
 
-  <target name="testExpandArchiveWithMultipleStreams" depends="setup">
-    <bunzip2  src="bzip2/multiple.bz2" dest="${output}"/>
-    <au:assertFilesMatch expected="bzip2/expected"
-                         actual="${output}/multiple"/>
+  <target name="testWithFileResourceToDirectory" depends="setup">
+    <gunzip dest="${output}">
+      <file file="../../../etc/testcases/taskdefs/expected/asf-logo.gif.gz"/>
+    </gunzip>
+    <au:assertFilesMatch expected="../../../etc/testcases/asf-logo.gif"
+                         actual="${output}/asf-logo.gif"/>
   </target>
 
   <target name="testWithNonFileResourceToFile" depends="setup">
-    <bunzip2 dest="${output}/greeting.txt">
-      <url url="http://ant.apache.org/webtest/bunzip2/greeting.txt.bz2"/>
-    </bunzip2>
+    <gunzip dest="${output}/greeting.txt">
+      <url url="http://ant.apache.org/webtest/gunzip/greeting.txt.gz"/>
+    </gunzip>
     <get src="http://ant.apache.org/webtest/gunzip/greeting.txt"
          dest="${output}/orig.greeting.txt"/>
     <au:assertFilesMatch expected="${output}/orig.greeting.txt"
@@ -39,12 +49,14 @@
   </target>
 
   <target name="testWithNonFileResourceToDir" depends="setup">
-    <bunzip2 dest="${output}">
-      <url url="http://ant.apache.org/webtest/bunzip2/greeting.txt.bz2"/>
-    </bunzip2>
+    <gunzip dest="${output}">
+      <url url="http://ant.apache.org/webtest/gunzip/greeting.txt.gz"/>
+    </gunzip>
     <get src="http://ant.apache.org/webtest/gunzip/greeting.txt"
          dest="${output}/orig.greeting.txt"/>
     <au:assertFilesMatch expected="${output}/orig.greeting.txt"
                          actual="${output}/greeting.txt"/>
   </target>
+
 </project>
+

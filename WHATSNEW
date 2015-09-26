@@ -1,3 +1,28 @@
+Changes from Ant 1.9.6 TO Ant 1.9.7
+===================================
+
+Changes that could break older environments:
+-------------------------------------------
+
+Fixed bugs:
+-----------
+
+ * ZipOutputStream could cause an ArrayIndexOutOfBoundsException when
+   adding entries with comments.  This never happens when using Ant as
+   a build tool but may affect users using Ant's zip package as a
+   library.
+
+ * <gunzip> and <bunzip2> didn't work for non-filesystem resources.
+
+ * <jar> ignored the zip64Mode attribute when creating manifest-only
+   jars.  This resulted in jar files that couldn't be read by Java5.
+   Bugzilla Report 58428
+
+
+Other changes:
+--------------
+
+
 Changes from Ant 1.9.5 TO Ant 1.9.6
 ===================================
 
@@ -13,8 +38,9 @@ Fixed bugs:
 
 Other changes:
 --------------
- * Hidden <javaconstant> resource is published now. It reads the
-   value of a specified java constant.
+
+* Hidden <javaconstant> resource is published now. It reads the
+  value of a specified java constant.
 
 
 Changes from Ant 1.9.4 TO Ant 1.9.5
